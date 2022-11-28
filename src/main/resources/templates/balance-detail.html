@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org" layout:decorate="~{/layouts/authenticated.html}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Detail</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <!--Search Box-->
+    <div class="card">
+        <div class="card-header">Balance Summery</div>
+        <div class="card-body">
+            <form action="#" class="row">
+                <div class="col-auto">
+                    <span class="form-control"
+                          th:text="${#temporals.format(vo.header.date, 'yyyy-MM-dd')}">2022/08
+                        /01</span>
+                </div>
+                <div class="col-auto">
+                    <span class="form-control" th:text="${vo.header.type}">Incomes</span>
+                </div>
+                <div class="col-4">
+                    <span class="form-control" th:text="${vo.header.category}">Student Registration</span>
+                </div>
+                <div class="col-auto">
+                    <a th:href="@{/user/balance-edit(id=${vo.header.getId()})}"
+                       class="btn btn-primary">Edit
+                        Details</a>
+                    <a th:href="@{/user/balance/delete/} + ${vo.header.id}"
+                       class="btn btn-danger">Delete
+                    </a>
+
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div th:replace="/fragments/components :: balanceDetailsList(${vo}, true)"></div>
+    <!--
+        <div class="card mt-4">
+            <div class="card-header">Balance Details</div>
+            <div class="card-body">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>No.</th>
+                        <th>Item Name</th>
+                        <th>Remark</th>
+                        <th class="text-end">Unit Price</th>
+                        <th class="text-end">Quantity</th>
+                        <th class="text-end">Price</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>01</td>
+                        <td>Java Basic</td>
+                        <td></td>
+                        <td class="text-end">150,000</td>
+                        <td class="text-end">3</td>
+                        <td class="text-end">450,000</td>
+                    </tr>
+                    </tbody>
+                    <tfoot>
+                    <tr>
+                        <td class="text-end" colspan="4">Total</td>
+                        <td class="text-end">3</td>
+                        <td class="text-end">450,000</td>
+                    </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    -->
+
+
+</div>
+</body>
+</html>

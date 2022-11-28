@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org" layout:decorate="~{/layouts/authenticated.html}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Incomes</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <!--Search Box-->
+    <div class="card">
+        <div class="card-header" th:text="${title}"></div>
+        <div class="card-body">
+            <form action="#" class="row">
+                <div class="col-3">
+                    <input type="date" name="dateFrom" id="dateFrom" class="form-control"
+                           th:value="${param.dateFrom}">
+                </div>
+                <div class="col-3">
+                    <input type="date" name="dateTo" id="dateTo" class="form-control"
+                           th:value="${param.dateTo}">
+                </div>
+                <div class="col">
+                    <input type="text" name="keyword" class="form-control" placeholder="Kyeword"
+                           th:value="${param.keyword}">
+                </div>
+                <div class="col-auto">
+                    <button class="btn btn-primary">
+                        <i class="bi-search"></i>
+                        Search
+                    </button>
+                    <a th:href="@{/user/balance-edit(type=${type})}" class="btn btn-danger">
+                        <i class="bi-plus"></i>
+                        Add New</a>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!--Result Table-->
+    <table class="table table-striped mt-4">
+        <thead>
+        <tr>
+            <th>Date</th>
+            <th>Category</th>
+            <th>Item</th>
+            <th class="text-end">Unit Price</th>
+            <th class="text-end">Quantity</th>
+            <th class="text-end">Amount</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="item : ${list}" class="align-middle">
+            <td th:text="${#temporals.format(item.balance.date, 'yyyy-MM-dd')}">2022/08/01</td>
+            <td th:text="${item.balance.category}">Student Fee</td>
+            <td th:text="${item.item}">Java Basic Online</td>
+            <td class="text-end" th:text="${#numbers.formatInteger(item.unitPrice, 1, 'COMMA')}">
+                150,000
+            </td>
+            <td class="text-end" th:text="${item.quantity}">
+                10
+            </td>
+            <td class="text-end"
+                th:text="${#numbers.formatInteger(item.unitPrice * item.quantity, 1, 'COMMA')}">
+                150,000,0
+            </td>
+            <td>
+                <a th:href="@{/user/balance/details/} + ${item.id}"
+                   class="btn btn-link"><i class="bi-list"></i></a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <div th:include="/fragments/components :: pagination (${pager})"></div>
+
+</div>
+</body>
+</html>

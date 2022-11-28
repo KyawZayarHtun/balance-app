@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org" layout:decorate="~{/layouts/authenticated.html}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Users Management</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <!--Search-->
+    <div class="card">
+        <div class="card-header">
+            <i class="bi-people-"></i>
+            User Management
+        </div>
+        <div class="card-body">
+            <form class="row">
+                <div class="col-3">
+                    <select name="status" id="status" class="form-select">
+                        <option th:selected="${#strings.equals(param.status, '')}" value="">
+                            All User
+                        </option>
+                        <option th:selected="${#strings.equals(param.status, 'true')}" value="true">
+                            Active
+                        </option>
+                        <option th:selected="${#strings.equals(param.status, 'false')}"
+                                value="false">Removed
+                        </option>
+                    </select>
+                </div>
+                <div class="col-auto">
+                    <input name="name" th:value="${param.name}" type="text"
+                           placeholder="Search Name"
+                           class="form-control"/>
+                </div>
+                <div class="col-auto">
+                    <input name="phone" th:value="${param.phone}" type="tel" class="form-control"
+                           placeholder="Search Phone"/>
+                </div>
+                <div class="col-auto">
+                    <button class="btn btn-primary">
+                        <i class="bi-search"></i>
+                        Search
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!--Result Table-->
+    <table class="table table-striped mt-4">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Status</th>
+            <th>Phone</th>
+            <th>Email</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user : ${list}" class="align-middle">
+            <td th:text="${user.id}">01</td>
+            <td th:text="${user.name}">Min Thu</td>
+            <td th:text="${user.status} ? 'Active' : 'Suspended'">Active</td>
+            <td th:text="${user.phone}">09965122877</td>
+            <td th:text="${user.email}">min@gmail.com</td>
+            <td>
+                <a href="#"
+                   th:attr="data-id=${user.id},data-status=${user.status},data-user=${user.name}"
+                   class="btn btn-link userStatusChangeLink">
+                    <i th:if="${user.status}" class="bi-trash"></i>
+                    <i th:unless="${user.status}" class="bi-check"></i>
+                </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <div th:replace="/fragments/modals :: userStatus"></div>
+</div>
+</body>
+</html>

@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Modal Fragments</title>
+</head>
+<body>
+<!--Change Password-->
+<div id="changePassword" class="modal fade" tabindex="-1" aria-hidden="true"
+     th:fragment="changePass">
+    <div class="modal-dialog modal-dialog-centered">
+        <form th:action="@{changepass}" method="post" class="modal-content">
+            <input type="hidden" name="loginId" th:value="${#authentication.name}">
+            <div class="modal-header">
+                <h3>Change Password</h3>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label for="oldPass" class="mb-2">Old Password</label>
+                    <input type="password" placeholder="Enter Old Password"
+                           class="form-control" id="oldPass" name="oldPassword">
+                </div>
+                <div class="mb-3">
+                    <label for="newPass" class="mb-2">New Password</label>
+                    <input type="password" placeholder="Enter New Password"
+                           class="form-control" id="newPass" name="newPassword">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary">Change Password</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!--Contact Modal-->
+<div id="contactModal" class="modal fade" tabindex="-1" aria-hidden="true"
+     th:fragment="contactForm">
+    <div class="modal-dialog modal-dialog-centered">
+        <form th:action="@{/user/profile/contact}" method="post" class="modal-content">
+            <div class="modal-header">
+                <h3>Contact Information</h3>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label for="ph" class="mb-2">Phone Number</label>
+                    <input type="tel" placeholder="Enter Phone Number"
+                           class="form-control" id="ph" name="phone">
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="mb-2">Email Address</label>
+                    <input type="email" placeholder="Enter Email Address"
+                           class="form-control" id="email" name="email">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary">Save Contact</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!--User Status Change Modal-->
+<div id="userStatusChangeModal" class="modal fade" tabindex="-1" aria-hidden="true"
+     th:fragment="userStatus">
+    <div class="modal-dialog modal-dialog-centered">
+        <form th:action="@{/admin/users/status}" method="post" class="modal-content">
+            <input id="changeUserId" type="hidden" name="id">
+            <input id="changeUserStatus" type="hidden" name="status">
+            <div class="modal-header">
+                <h3>Are you sure you want to change Status</h3>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label for="changeUsername" class="mb-2">Username</label>
+                    <span id="changeUsername" class="form-control"></span>
+                </div>
+                <div class="mb-3">
+                    <label for="changeUserStatusBefore" class="mb-2">Last Status</label>
+                    <span id="changeUserStatusBefore" class="form-control"></span>
+                </div>
+                <div class="mb-3">
+                    <label for="changeUserStatusAfter" class="mb-2">Change Status</label>
+                    <span id="changeUserStatusAfter" class="form-control"></span>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary">Ok</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>
